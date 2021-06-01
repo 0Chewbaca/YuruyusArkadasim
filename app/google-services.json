@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "435809933136",
+    "project_id": "yuruyus-arkadasim",
+    "storage_bucket": "yuruyus-arkadasim.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435809933136:android:a703e602385c5be3d83e55",
+        "android_client_info": {
+          "package_name": "com.erenmeric.yuruyus_arkadasim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435809933136-vem75puu83hoqhh0f1cbsugc20vuo1au.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsXoDHx6KB5rjjLalc100BPO0itM8Efz4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435809933136-vem75puu83hoqhh0f1cbsugc20vuo1au.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
