@@ -44,7 +44,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="65dp"
         android:layout_marginEnd="65dp"
-        android:layout_marginBottom="47dp"
+        android:layout_marginBottom="1dp"
         android:ems="10"
         android:hint="Şehir"
         android:inputType="textPersonName"
@@ -59,7 +59,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="65dp"
         android:layout_marginEnd="65dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="17dp"
         android:ems="10"
         android:hint="Yaş"
         android:inputType="number"
@@ -116,22 +116,21 @@
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="47dp"
+        android:layout_marginEnd="6dp"
         android:orientation='horizontal'
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button105"
+        app:layout_constraintEnd_toEndOf="@+id/city"
         app:layout_constraintTop_toBottomOf="@+id/city">
 
         <RadioButton
-            android:id="@+id/maleRadioButton"
+            android:id="@+id/radio_one"
             android:layout_width="185dp"
             android:layout_height="wrap_content"
             android:text="Erkek"
             android:textSize="18dp" />
 
         <RadioButton
-            android:id="@+id/femaleRadioButton"
+            android:id="@+id/radio_two"
             android:layout_width="83dp"
             android:layout_height="wrap_content"
             android:text="Kadın"

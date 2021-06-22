@@ -23,7 +23,7 @@ public class SignupActivity extends AppCompatActivity {
 
     EditText nameText, surnameText, ageText, cityText, passwordText, emailText;
     private FirebaseAuth firebaseAuth;
-    private FirebaseFirestore db;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     RadioGroup radioGroup;
     RadioButton radioButton;
     Button button;
@@ -42,7 +42,7 @@ public class SignupActivity extends AppCompatActivity {
         passwordText = (EditText) findViewById(R.id.passwordText);
         emailText = (EditText) findViewById(R.id.emailText);
         firebaseAuth = (FirebaseAuth) FirebaseAuth.getInstance();
-        db = (FirebaseFirestore) FirebaseFirestore.getInstance();
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,10 +57,6 @@ public class SignupActivity extends AppCompatActivity {
         String name, surname, city, mail, password;
         int age;
 
-        Toast.makeText(getApplicationContext(), "Çalışıyor", Toast.LENGTH_SHORT).show();
-        Log.d("signup_button_clicked", "basıldı");
-        gender = 0;
-
         try {
             name = nameText.getText().toString();
             surname = surnameText.getText().toString();
@@ -68,59 +64,48 @@ public class SignupActivity extends AppCompatActivity {
             mail = emailText.getText().toString();
             password = passwordText.getText().toString();
 
-            //Log.d("signup_button_clicked", "password un altı");
-
             age = Integer.parseInt(ageText.getText().toString());
 
-            //Radio Button
-            /*
             int ID = radioGroup.getCheckedRadioButtonId();
             radioButton = findViewById(ID);
 
-
-
-            if (radioButton.getText().toString() == "Erkek"){
+            if (radioButton.getId() == R.id.radio_one){
                 gender = 0;
             } else{
                 gender = 1;
             }
-            */
 
-            //Log.d("signup_button_clicked", "try ın sonu");
+
         } catch (Exception e) {
             Toast.makeText(SignupActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            Log.d("signup_button_clicked", "catch!!!");
-            Log.d("signup_button_clicked", e.getLocalizedMessage());
             return;
         }
 
-        Log.d("signup_button_clicked", "try-catch bitti");
-        User userToReg = new User(name, surname, city, mail, password ,age, gender);
-        db.collection("users").add(userToReg);
 
+        User userToReg = new User(name, surname, city, mail, password ,age, gender);
 
         firebaseAuth.createUserWithEmailAndPassword(mail, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(SignupActivity.this, "Kullanıcı oluşturuldu", Toast.LENGTH_SHORT).show();
-                //db.collection("users").add(userToReg);
 
-                Log.d("signup_button_clicked", "Kullanıcı oluşuruldu");
+                //db.collection("users").add(userToReg);
+                db.collection("users").document(firebaseAuth.getUid()).set(userToReg);
 
                 Intent intent = new Intent(SignupActivity.this, MainMenu.class);
                 startActivity(intent);
-
-
                 //finish();
+
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(SignupActivity.this, e.getLocalizedMessage().toString(), Toast.LENGTH_SHORT).show();
-                Log.d("signup_button_clicked", "hata çıktı");
 
             }
         });
+
 
 
     }

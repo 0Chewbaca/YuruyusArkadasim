@@ -37,9 +37,6 @@ public class User {
         this.password = password;
     }
 
-    public int getGender() {
-        return gender;
-    }
 
 
 
@@ -67,12 +64,12 @@ public class User {
         this.surname = surname;
     }
 
-    public int isGender() {
-        return gender;
-    }
-
     public void setGender(int gender) {
         this.gender = gender;
+    }
+
+    public int getGender() {
+        return gender;
     }
 
     public int getAge() {
@@ -82,6 +79,8 @@ public class User {
     public void setAge(int age) {
         this.age = age;
     }
+
+
 
 
     public String toString() {
