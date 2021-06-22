@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignupActivity extends AppCompatActivity {
@@ -24,10 +25,10 @@ public class SignupActivity extends AppCompatActivity {
     EditText nameText, surnameText, ageText, cityText, passwordText, emailText;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
-    RadioGroup radioGroup;
-    RadioButton radioButton;
+    RadioGroup genderGroup;
+    RadioButton maleButton, femaleButton;
     Button button;
-    int gender; // 0 -> erkek, 1 -> kız
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,11 @@ public class SignupActivity extends AppCompatActivity {
         emailText = (EditText) findViewById(R.id.emailText);
         firebaseAuth = (FirebaseAuth) FirebaseAuth.getInstance();
         db = (FirebaseFirestore) FirebaseFirestore.getInstance();
+        user = (FirebaseUser) FirebaseAuth.getInstance().getCurrentUser();
+        genderGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        maleButton = (RadioButton) findViewById(R.id.maleRadioButton);
+        femaleButton = (RadioButton) findViewById(R.id.femaleRadioButton);
+
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,64 +60,84 @@ public class SignupActivity extends AppCompatActivity {
 
     public void signup(View view) {
 
+        Toast.makeText(getApplicationContext(), "Egenin pushu", Toast.LENGTH_SHORT).show();
+
         String name, surname, city, mail, password;
-        int age;
+        int age, gender;
 
-        Toast.makeText(getApplicationContext(), "Çalışıyor", Toast.LENGTH_SHORT).show();
         Log.d("signup_button_clicked", "basıldı");
-        gender = 0;
-
-        try {
-            name = nameText.getText().toString();
-            surname = surnameText.getText().toString();
-            city = cityText.getText().toString();
-            mail = emailText.getText().toString();
-            password = passwordText.getText().toString();
-
-            //Log.d("signup_button_clicked", "password un altı");
-
-            age = Integer.parseInt(ageText.getText().toString());
-
-            //Radio Button
-            /*
-            int ID = radioGroup.getCheckedRadioButtonId();
-            radioButton = findViewById(ID);
 
 
+        name = nameText.getText().toString();
+        surname = surnameText.getText().toString();
+        city = cityText.getText().toString();
+        mail = emailText.getText().toString();
+        password = passwordText.getText().toString();
 
-            if (radioButton.getText().toString() == "Erkek"){
-                gender = 0;
-            } else{
-                gender = 1;
-            }
-            */
-
-            //Log.d("signup_button_clicked", "try ın sonu");
-        } catch (Exception e) {
-            Toast.makeText(SignupActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
-            Log.d("signup_button_clicked", "catch!!!");
-            Log.d("signup_button_clicked", e.getLocalizedMessage());
+        if(name.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "isim alanı boş bırakılamaz",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(surname.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "soyisim alanı boş bırakılamaz",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(city.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "şehir alanı boş bırakılamaz",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(mail.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "mail alanı boş bırakılamaz",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(password.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "şifre alanı boş bırakılamaz",
+                    Toast.LENGTH_LONG).show();
             return;
         }
 
+        if(ageText.getText().toString().isEmpty()){
+            Toast.makeText(getApplicationContext(), "yaş alanı boş bırakılamaz",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        age = Integer.parseInt(ageText.getText().toString());
+
+
+        int checkedGender = genderGroup.getCheckedRadioButtonId();
+        if(checkedGender == -1){
+            Toast.makeText(getApplicationContext(), "cinsiyet alanı boş bırakılamaz",
+                    Toast.LENGTH_LONG).show();
+            return;
+        } else if( checkedGender == maleButton.getId() ){
+            gender = 1;
+        } else {
+            gender = 0;
+        }
+
         Log.d("signup_button_clicked", "try-catch bitti");
-        User userToReg = new User(name, surname, city, mail, password ,age, gender);
-        db.collection("users").add(userToReg);
+
 
 
         firebaseAuth.createUserWithEmailAndPassword(mail, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
-                Toast.makeText(SignupActivity.this, "Kullanıcı oluşturuldu", Toast.LENGTH_SHORT).show();
-                //db.collection("users").add(userToReg);
 
-                Log.d("signup_button_clicked", "Kullanıcı oluşuruldu");
+                String uid;
+                if (user != null) {
+                    uid = user.getUid().toString();
+                    User userToReg = new User(name, surname, city, mail,  password, age, gender, uid);
+                    db.collection("users").document(uid).set(userToReg);
+                    Toast.makeText(getApplicationContext(), userToReg.toString(), Toast.LENGTH_LONG).show();
+                }
 
                 Intent intent = new Intent(SignupActivity.this, MainMenu.class);
                 startActivity(intent);
-
-
-                //finish();
+                finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -121,7 +147,6 @@ public class SignupActivity extends AppCompatActivity {
 
             }
         });
-
 
     }
 }
