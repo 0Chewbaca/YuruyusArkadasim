@@ -2,7 +2,7 @@ package com.erenmeric.yuruyus_arkadasim;
 
 public class User {
 
-    String name, surname, city, mail, password;
+    String name, surname, city, mail, password, uid;
     int age, gender;
      // 0 -> erkek, 1 -> kız
 
@@ -11,7 +11,16 @@ public class User {
 
     }
 
-    public User(String name, String surname, String city, String mail, String password, int age, int gender) {
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public User(String name, String surname, String city, String mail, String password, int age, int gender,
+                String uid) {
         this.name = name;
         this.surname = surname;
         this.city = city;
@@ -19,36 +28,7 @@ public class User {
         this.password = password;
         this.age = age;
         this.gender = gender;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getGender() {
-        return gender;
-    }
-
-
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
+        this.uid = uid;
     }
 
     public String getName() {
@@ -67,12 +47,28 @@ public class User {
         this.surname = surname;
     }
 
-    public int isGender() {
-        return gender;
+    public String getCity() {
+        return city;
     }
 
-    public void setGender(int gender) {
-        this.gender = gender;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getAge() {
@@ -83,8 +79,15 @@ public class User {
         this.age = age;
     }
 
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
 
     public String toString() {
-        return "User: " + name + " " + surname + " Age: " + age;
+        return "User: " + name + " " + surname + " Age: " + age+ " Gender: " + gender;
     }
 }
