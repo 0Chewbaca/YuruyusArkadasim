@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.erenmeric.yuruyus_arkadasim.Fragments.HomeFragment;
+import com.erenmeric.yuruyus_arkadasim.Fragments.NotificationFragment;
 import com.erenmeric.yuruyus_arkadasim.Fragments.ProfileFragment;
 import com.erenmeric.yuruyus_arkadasim.Fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -42,11 +43,17 @@ public class MainMenu extends AppCompatActivity {
                     case R.id.nav_profile:
                         selectorFragment = new ProfileFragment();
                         break;
-                    /*case R.id.nav_heart:
-                        selectorFragment = new Heart*/
+                    case R.id.nav_heart:
+                        selectorFragment = new NotificationFragment();
                 }
+
+                if (selectorFragment != null) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectorFragment).commit();
+                }
+
             }
         });
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
     }
 }
