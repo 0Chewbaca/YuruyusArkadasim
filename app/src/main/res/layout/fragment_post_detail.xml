@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.SearchFragment">
+    tools:context=".Fragments.PostDetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -17,18 +17,19 @@
             android:id="@+id/toolbar"
             android:background="?android:attr/windowBackground">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_search"/>
-
-            <com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/search_bar"
-                android:hint="Search..."
-                android:layout_marginStart="10dp"
-                android:background="@android:color/transparent"/>
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:text="Photo"
+                    android:textColor="@color/color_primary_dark"/>
+
+            </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -37,15 +38,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/recycler_view_users"
-        android:layout_below="@+id/bar"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_tags"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/recycler_view_users"
-        android:layout_marginTop="55dp" />
-
+        android:layout_below="@+id/bar"
+        android:id="@+id/recycler_view"/>
 
 </RelativeLayout>

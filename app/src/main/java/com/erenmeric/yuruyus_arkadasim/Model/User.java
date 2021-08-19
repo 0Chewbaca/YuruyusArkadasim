@@ -1,19 +1,56 @@
-package com.erenmeric.yuruyus_arkadasim;
+package com.erenmeric.yuruyus_arkadasim.Model;
 
 public class User {
 
-    String name, surname, city, mail, password;
+    String name, username, city, mail, password;
     int age, gender;
-     // 0 -> erkek, 1 -> kız
+    private String bio;
+    private String imageUrl;
+    private String id;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
 
     public User() {
 
     }
 
-    public User(String name, String surname, String city, String mail, String password, int age, int gender) {
+    public User(String name, String username, String city, String mail, String password, int age, int gender) {
         this.name = name;
-        this.surname = surname;
+        this.username = username;
         this.city = city;
         this.mail = mail;
         this.password = password;
@@ -56,13 +93,7 @@ public class User {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
 
     public void setGender(int gender) {
         this.gender = gender;
@@ -81,9 +112,4 @@ public class User {
     }
 
 
-
-
-    public String toString() {
-        return "User: " + name + " " + surname + " Age: " + age;
-    }
 }

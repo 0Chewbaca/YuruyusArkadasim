@@ -1,5 +1,6 @@
 package com.erenmeric.yuruyus_arkadasim;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,6 +17,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -23,6 +34,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.hendraanggrian.appcompat.socialview.Hashtag;
@@ -31,6 +43,9 @@ import com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.w3c.dom.Document;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class PostActivity extends AppCompatActivity {
 
@@ -91,19 +106,36 @@ public class PostActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        ArrayAdapter<Hashtag> hashtagArrayAdapter= new HashtagArrayAdapter<>(getApplication());
-        FirebaseFirestore.getInstance().collection("Hashtags").document().addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        ArrayAdapter<Hashtag> hashtagArrayAdapter = new HashtagArrayAdapter<>(getApplication());
+
+        FirebaseDatabase.getInstance().getReference().child("Hashtags").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    hashtagArrayAdapter.add(new Hashtag(snapshot.getKey(),(int)snapshot.getChildrenCount()));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        description.setHashtagAdapter(hashtagArrayAdapter);
+
+        /*FirebaseFirestore.getInstance().collection("Hashtags").document().addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
 
 
-                /*for (DocumentSnapshot snapshot: value.getData()){
+                for (DocumentSnapshot snapshot: value.getData()){
 
-                }*/
+                }
 
 
             }
-        });
+        });*/
     }
 
     public void upload() {
@@ -112,10 +144,71 @@ public class PostActivity extends AppCompatActivity {
         pd.show();
 
         if (imageUri != null) {
-            DocumentReference filePath = FirebaseFirestore.getInstance().collection("Posts")
-                    .document(System.currentTimeMillis()+"."+getFileExtension(imageUri));
-            
 
+            StorageReference filePath = FirebaseStorage.getInstance().getReference("Posts")
+                    .child(System.currentTimeMillis()+"."+getFileExtension(imageUri));
+
+            StorageTask uploadTask = filePath.putFile(imageUri);
+            uploadTask.continueWithTask(new Continuation() {
+                @Override
+                public Object then(@NonNull Task task) throws Exception {
+
+                    if (!task.isSuccessful()){
+                        throw task.getException();
+                    }
+
+                    return filePath.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+
+                    Uri downloadUri = task.getResult();
+                    imageUrl = downloadUri.toString();
+
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
+                    String postId = ref.push().getKey();
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("postId", postId);
+                    map.put("imageUrl", imageUrl);
+                    map.put("description", description.getText().toString());
+                    map.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+
+                    ref.child(postId).setValue(map);
+                    DatabaseReference hashtagRef = FirebaseDatabase.getInstance().getReference()
+                            .child("Hashtags");
+
+                    List<String> hashtags = description.getHashtags();
+                    if (!hashtags.isEmpty()){
+                        for (String hashtag: hashtags){
+                            map.clear();
+                            map.put("tag", hashtag.toLowerCase());
+                            map.put("postId", postId);
+
+                            hashtagRef.child(hashtag.toLowerCase()).child(postId).setValue(map);
+                        }
+                    }
+
+                    pd.dismiss();
+                    startActivity(new Intent(getApplicationContext(), MainMenu.class));
+                    finish();
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+            /*DocumentReference filePath = FirebaseFirestore.getInstance().collection("Posts")
+                    .document(System.currentTimeMillis()+"."+getFileExtension(imageUri));*/
+
+
+
+        } else {
+            Toast.makeText(getApplicationContext(), "No image was selected", Toast.LENGTH_LONG).show();
         }
     }
 

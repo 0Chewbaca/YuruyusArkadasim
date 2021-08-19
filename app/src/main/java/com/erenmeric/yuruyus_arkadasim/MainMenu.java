@@ -1,9 +1,12 @@
 package com.erenmeric.yuruyus_arkadasim;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -26,23 +29,27 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
 
         bottomNavigationView =findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.nav_home:
                         selectorFragment = new HomeFragment();
                         break;
+
                     case R.id.nav_search:
                         selectorFragment = new SearchFragment();
                         break;
 
                     case R.id.nav_add:
                         selectorFragment = null;
+                        startActivity(new Intent(getApplicationContext(), PostActivity.class));
                         break;
+
                     case R.id.nav_profile:
                         selectorFragment = new ProfileFragment();
                         break;
+
                     case R.id.nav_heart:
                         selectorFragment = new NotificationFragment();
                 }
@@ -50,10 +57,45 @@ public class MainMenu extends AppCompatActivity {
                 if (selectorFragment != null) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectorFragment).commit();
                 }
-
+                return true;
             }
         });
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        Bundle intent = getIntent().getExtras();
+
+        if (intent != null){
+            String profileId  = intent.getString("publisherId");
+            getSharedPreferences("PROFILE", MODE_PRIVATE).edit().putString("profileId", profileId).apply();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
+            bottomNavigationView.setSelectedItemId(R.id.nav_profile);
+            intent.clear();
+        } else {
+            getSharedPreferences("PROFILE", MODE_PRIVATE).edit().putString("profileId", "none").apply();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new HomeFragment()).commit();
+        }
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        AlertDialog alertDialog = new AlertDialog.Builder(getApplicationContext()).create();
+        alertDialog.setTitle("Do you want exit?");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Exit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+
+        alertDialog.show();
     }
 }

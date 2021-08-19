@@ -10,15 +10,22 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginScreen extends AppCompatActivity {
 
     EditText mailAddress, password;
+
+
+
     private FirebaseAuth firebaseAuth;
+
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +36,9 @@ public class LoginScreen extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
 
         firebaseAuth = (FirebaseAuth) FirebaseAuth.getInstance();
+
+
+        mAuth = FirebaseAuth.getInstance();
     }
 
     public void login(View view) {
@@ -42,6 +52,29 @@ public class LoginScreen extends AppCompatActivity {
             return;
         }
 
+
+        mAuth.signInWithEmailAndPassword(mail, pass)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(getApplicationContext(), "Logged in successfully",
+                                    Toast.LENGTH_LONG).show();
+                            Intent toMain = new Intent(getApplicationContext(), MainMenu.class);
+                            getIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(toMain);
+                            finish();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+        /*
         firebaseAuth.signInWithEmailAndPassword(mail, pass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
@@ -60,7 +93,7 @@ public class LoginScreen extends AppCompatActivity {
                 Log.d("Giriş", "maalesef");
             }
         });
-
+        */
 
     }
 }
