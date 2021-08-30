@@ -4,6 +4,17 @@ public class Post {
     private String imageUrl;
     private String postId;
     private String publisher;
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "imageUrl='" + imageUrl + '\'' +
+                ", postId='" + postId + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
     private String description;
 
     public Post() {

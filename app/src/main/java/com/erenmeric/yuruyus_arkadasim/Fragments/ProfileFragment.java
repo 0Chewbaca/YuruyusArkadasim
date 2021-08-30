@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,7 @@ public class ProfileFragment extends Fragment {
 
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         String data = getContext().getSharedPreferences("PROFILE", Context.MODE_PRIVATE).getString("profileId", "none");
-
+        Log.d("eren10253", data);
         if(data.equals("none")){
             profileId = fUser.getUid();
         } else {
@@ -221,6 +222,8 @@ public class ProfileFragment extends Fragment {
                 myPhotoList.clear();
                 for(DataSnapshot s: snapshot.getChildren()){
                     Post post = s.getValue(Post.class);
+                    Log.d("erenege145", post.toString());
+
                     if(post.getPublisher().equals(profileId)){
                         myPhotoList.add(post);
                     }

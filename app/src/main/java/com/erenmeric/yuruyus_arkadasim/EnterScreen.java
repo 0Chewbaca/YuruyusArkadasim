@@ -21,12 +21,15 @@ public class EnterScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser mUser = mAuth.getCurrentUser();
 
 
         if (mUser != null){
-            selectorFragment = new HomeFragment();
+            startActivity(new Intent(getApplicationContext(), MainMenu.class));
+            finish();
         }
     }
 
