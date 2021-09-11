@@ -8,8 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.erenmeric.yuruyus_arkadasim.Fragments.PostDetailFragment;
 import com.erenmeric.yuruyus_arkadasim.Model.Post;
 import com.erenmeric.yuruyus_arkadasim.Model.User;
 import com.erenmeric.yuruyus_arkadasim.R;
@@ -83,6 +85,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostId())
                             .child(firebaseUser.getUid()).removeValue();
                 }
+            }
+        });
+
+        holder.postImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mContext.getSharedPreferences("PREFS",Context.MODE_PRIVATE).edit().putString("postid",post.getPostId()).apply();
+
+                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(
+                        R.id.fragment_container, new PostDetailFragment()).commit();
             }
         });
     }

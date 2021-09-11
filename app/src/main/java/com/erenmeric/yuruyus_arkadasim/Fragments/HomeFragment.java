@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
         linearLayoutManager.setReverseLayout(true);
 
         followingLists = new ArrayList<>();
-
+        checkFollowingUsers();
         //return super.onCreateView(inflater, container, savedInstanceState);
         return view;
     }

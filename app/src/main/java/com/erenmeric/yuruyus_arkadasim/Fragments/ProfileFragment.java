@@ -19,10 +19,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.erenmeric.yuruyus_arkadasim.Adapter.CreateAdapter;
 import com.erenmeric.yuruyus_arkadasim.Adapter.PhotoAdapter;
 import com.erenmeric.yuruyus_arkadasim.EditProfileActivity;
 import com.erenmeric.yuruyus_arkadasim.Model.Post;
 import com.erenmeric.yuruyus_arkadasim.Model.User;
+import com.erenmeric.yuruyus_arkadasim.OptionsActivity;
 import com.erenmeric.yuruyus_arkadasim.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,11 +45,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
 
     private RecyclerView recyclerViewSaves;
-    private PhotoAdapter postAdapterSaves;
+    private CreateAdapter postAdapterSaves;
     private List<Post> mySavedPosts;
 
     private RecyclerView recyclerView;
-    private PhotoAdapter photoAdapter;
+    private CreateAdapter photoAdapter;
     private List<Post> myPhotoList;
 
     private CircleImageView imageProfile;
@@ -99,14 +101,15 @@ public class ProfileFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         myPhotoList = new ArrayList<>();
-        photoAdapter = new PhotoAdapter(getContext(), myPhotoList);
+        photoAdapter = new CreateAdapter(getContext(), myPhotoList);
         recyclerView.setAdapter(photoAdapter);
 
         recyclerViewSaves = view.findViewById(R.id.recycler_view_saved);
         recyclerViewSaves.setHasFixedSize(true);
         recyclerViewSaves.setLayoutManager(new GridLayoutManager(getContext(), 3));
+
         mySavedPosts = new ArrayList<>();
-        postAdapterSaves = new PhotoAdapter(getContext(), mySavedPosts);
+        postAdapterSaves = new CreateAdapter(getContext(), mySavedPosts);
         recyclerViewSaves.setAdapter(postAdapterSaves);
 
         bottom = view.findViewById(R.id.bottom);
@@ -124,6 +127,13 @@ public class ProfileFragment extends Fragment {
             checkFollowingStatus();
             bottom.setVisibility(View.GONE);
         }
+
+        options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), OptionsActivity.class));
+            }
+        });
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override

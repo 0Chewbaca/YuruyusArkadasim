@@ -47,8 +47,10 @@ public class MainMenu extends AppCompatActivity {
                         break;
 
                     case R.id.nav_profile:
+                        getSharedPreferences("PROFILE", MODE_PRIVATE).edit().putString("profileId", "none").apply();
                         selectorFragment = new ProfileFragment();
                         break;
+
 
                     case R.id.nav_heart:
                         selectorFragment = new NotificationFragment();
@@ -67,7 +69,6 @@ public class MainMenu extends AppCompatActivity {
             String profileId  = intent.getString("publisherId");
             getSharedPreferences("PROFILE", MODE_PRIVATE).edit().putString("profileId", profileId).apply();
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProfileFragment()).commit();
-            bottomNavigationView.setSelectedItemId(R.id.nav_profile);
             intent.clear();
         } else {
             getSharedPreferences("PROFILE", MODE_PRIVATE).edit().putString("profileId", "none").apply();
