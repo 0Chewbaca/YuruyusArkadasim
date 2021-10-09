@@ -21,7 +21,9 @@ import android.widget.TextView;
 
 import com.erenmeric.yuruyus_arkadasim.Adapter.CreateAdapter;
 import com.erenmeric.yuruyus_arkadasim.Adapter.PhotoAdapter;
+import com.erenmeric.yuruyus_arkadasim.Adapter.PostAdapter;
 import com.erenmeric.yuruyus_arkadasim.EditProfileActivity;
+import com.erenmeric.yuruyus_arkadasim.FollowersActivity;
 import com.erenmeric.yuruyus_arkadasim.Model.Post;
 import com.erenmeric.yuruyus_arkadasim.Model.User;
 import com.erenmeric.yuruyus_arkadasim.OptionsActivity;
@@ -45,11 +47,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
 
     private RecyclerView recyclerViewSaves;
-    private CreateAdapter postAdapterSaves;
+    private PhotoAdapter postAdapterSaves;
     private List<Post> mySavedPosts;
 
     private RecyclerView recyclerView;
-    private CreateAdapter photoAdapter;
+    //private CreateAdapter photoAdapter;
+    private PhotoAdapter photoAdapter;
     private List<Post> myPhotoList;
 
     private CircleImageView imageProfile;
@@ -66,7 +69,7 @@ public class ProfileFragment extends Fragment {
     private Button editProfile;
 
     private LinearLayout bottom;
-
+    private TextView followingProfile, followerProfile;
     private FirebaseUser fUser;
     String profileId;
 
@@ -84,7 +87,8 @@ public class ProfileFragment extends Fragment {
             profileId = data;
         }
 
-
+        followingProfile  = view.findViewById(R.id.following_profile);
+        followerProfile = view.findViewById(R.id.followers_profile);
         imageProfile = view.findViewById(R.id.image_profile);
         options = view.findViewById(R.id.options);
         posts = view.findViewById(R.id.posts);
@@ -101,7 +105,8 @@ public class ProfileFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
         myPhotoList = new ArrayList<>();
-        photoAdapter = new CreateAdapter(getContext(), myPhotoList);
+        //photoAdapter = new CreateAdapter(getContext(), myPhotoList);
+        photoAdapter = new PhotoAdapter(getContext(), myPhotoList);
         recyclerView.setAdapter(photoAdapter);
 
         recyclerViewSaves = view.findViewById(R.id.recycler_view_saved);
@@ -109,7 +114,7 @@ public class ProfileFragment extends Fragment {
         recyclerViewSaves.setLayoutManager(new GridLayoutManager(getContext(), 3));
 
         mySavedPosts = new ArrayList<>();
-        postAdapterSaves = new CreateAdapter(getContext(), mySavedPosts);
+        postAdapterSaves = new PhotoAdapter(getContext(), mySavedPosts);
         recyclerViewSaves.setAdapter(postAdapterSaves);
 
         bottom = view.findViewById(R.id.bottom);
@@ -126,6 +131,7 @@ public class ProfileFragment extends Fragment {
         } else {
             checkFollowingStatus();
             bottom.setVisibility(View.GONE);
+            options.setVisibility(View.GONE);
         }
 
         options.setOnClickListener(new View.OnClickListener() {
@@ -176,6 +182,46 @@ public class ProfileFragment extends Fragment {
             public void onClick(View view) {
                 recyclerView.setVisibility(View.GONE);
                 recyclerViewSaves.setVisibility(View.VISIBLE);
+            }
+        });
+
+        followerProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), FollowersActivity.class);
+                intent.putExtra("id", profileId);
+                intent.putExtra("title", "followers");
+                startActivity(intent);
+            }
+        });
+
+        followers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), FollowersActivity.class);
+                intent.putExtra("id", profileId);
+                intent.putExtra("title", "followers");
+                startActivity(intent);
+            }
+        });
+
+        following.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), FollowersActivity.class);
+                intent.putExtra("id", profileId);
+                intent.putExtra("title", "following");
+                startActivity(intent);
+            }
+        });
+
+        followingProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), FollowersActivity.class);
+                intent.putExtra("id", profileId);
+                intent.putExtra("title", "following");
+                startActivity(intent);
             }
         });
 
@@ -232,7 +278,7 @@ public class ProfileFragment extends Fragment {
                 myPhotoList.clear();
                 for(DataSnapshot s: snapshot.getChildren()){
                     Post post = s.getValue(Post.class);
-                    Log.d("erenege145", post.toString());
+
 
                     if(post.getPublisher().equals(profileId)){
                         myPhotoList.add(post);

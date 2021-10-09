@@ -79,7 +79,7 @@ public class MainMenu extends AppCompatActivity {
 
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         super.onBackPressed();
         AlertDialog alertDialog = new AlertDialog.Builder(getApplicationContext()).create();
@@ -98,5 +98,5 @@ public class MainMenu extends AppCompatActivity {
         });
 
         alertDialog.show();
-    }
+    }*/
 }

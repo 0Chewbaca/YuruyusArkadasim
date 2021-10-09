@@ -167,7 +167,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         Uri downloadUri = (Uri)task.getResult();
                         String url = downloadUri.toString();
                         FirebaseDatabase.getInstance().getReference().child("Users").child(fUser.getUid())
-                                .child("imageurl").setValue(url);
+                                .child("imageUrl").setValue(url);
                         pd.dismiss();
                     } else {
                         Toast.makeText(getApplicationContext(), "Upload failed", Toast.LENGTH_LONG).show();

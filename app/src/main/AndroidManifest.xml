@@ -13,6 +13,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Yuruyus_Arkadasim">
         <activity
+            android:name=".DirectMessageActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ChatActivity"
+            android:exported="true" />
+        <activity
+            android:name=".FollowersActivity"
+            android:exported="true" />
+        <activity
             android:name=".OptionsActivity"
             android:exported="true" />
         <activity android:name=".EditProfileActivity" />

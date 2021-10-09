@@ -3,13 +3,33 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/drawable-anydpi/ic_seen.xml" value="0.23692307692307693" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/drawable/circle_background.xml" value="0.1925925925925926" />
         <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/drawable/ic_inbox.xml" value="0.240625" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/drawable/message_background_grey.xml" value="0.23692307692307693" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/drawable/message_background_red.xml" value="0.23692307692307693" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/activity_chat.xml" value="0.192481884057971" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/activity_comment.xml" value="0.192481884057971" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/activity_direct_message.xml" value="0.192481884057971" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/activity_edit_profile.xml" value="0.19701086956521738" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/activity_followers.xml" value="0.192481884057971" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/activity_main_menu.xml" value="0.10916919959473151" />
         <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/activity_options.xml" value="0.22447916666666667" />
-        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/fragment_home.xml" value="0.18" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/activity_post.xml" value="0.22" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/comment_item.xml" value="0.33" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/dm_user_item.xml" value="0.192481884057971" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/fragment_notification.xml" value="0.21" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/fragment_post_detail.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/fragment_profile.xml" value="0.17" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/fragment_search.xml" value="0.17" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/fragment_tags_detail.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/notification_item.xml" value="0.192481884057971" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/other_person_message_item.xml" value="0.192481884057971" />
         <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/photo_item.xml" value="0.1" />
         <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/post_item.xml" value="0.22" />
         <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/tag_item.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/layout/your_message_item.xml" value="0.192481884057971" />
         <entry key="..\:/Users/Lenovo/OneDrive/Documents/Programming/Java-Android/Yuruyus_Arkadasim/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.240625" />
       </map>
     </option>

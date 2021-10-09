@@ -28,6 +28,7 @@ import com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchFragment extends Fragment {
 
@@ -127,7 +128,7 @@ public class SearchFragment extends Fragment {
                             mUsers.add(user);
                         }
 
-                        //userAdapter.notifyDataSetChanged();
+                        userAdapter.notifyDataSetChanged();
                     }
                 }
 
@@ -139,6 +140,8 @@ public class SearchFragment extends Fragment {
         }
 
         private void searchUser(String s) {
+
+            //s = s.toLowerCase(Locale.ROOT);
             Query query = FirebaseDatabase.getInstance().getReference().child("Users")
                     .orderByChild("username").startAt(s).endAt( s+ "\uf8ff");
 
@@ -156,8 +159,8 @@ public class SearchFragment extends Fragment {
                         Log.d("Users","end" + user.getName());
                     }
 
-                    //if(!mUsers.isEmpty())
-                        //userAdapter.notifyDataSetChanged();
+                    if(!mUsers.isEmpty())
+                        userAdapter.notifyDataSetChanged();
                 }
 
                 @Override

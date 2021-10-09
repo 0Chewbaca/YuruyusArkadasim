@@ -114,6 +114,7 @@
                                 android:textStyle="bold"
                                 android:textSize="18sp"/>
                             <TextView
+                                android:id="@+id/followers_profile"
                                 android:textSize="12sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -135,6 +136,7 @@
                                 android:textStyle="bold"
                                 android:textSize="18sp"/>
                             <TextView
+                                android:id="@+id/following_profile"
                                 android:textSize="12sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.erenmeric.yuruyus_arkadasim.CommentActivity;
 import com.erenmeric.yuruyus_arkadasim.MainMenu;
 import com.erenmeric.yuruyus_arkadasim.Model.Comment;
 import com.erenmeric.yuruyus_arkadasim.Model.User;
@@ -85,15 +87,19 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
                 Intent intent = new Intent(mContext, MainMenu.class);
                 intent.putExtra("publisherId", comment.getPublisher() );
                 mContext.startActivity(intent);
+                Log.d("eren12345", "Okey??");
             }
         });
 
         holder.imageProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(mContext, MainMenu.class);
                 intent.putExtra("publisherId", comment.getPublisher() );
                 mContext.startActivity(intent);
+
+
             }
         });
 

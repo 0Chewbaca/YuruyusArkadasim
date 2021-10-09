@@ -36,10 +36,12 @@ public class EnterScreen extends AppCompatActivity {
     public void signup(View view) {
         Intent signup = new Intent(this, SignupActivity.class);
         startActivity(signup);
+        finish();
     }
 
     public void login(View view) {
         Intent intent = new Intent(this, LoginScreen.class);
         startActivity(intent);
+        finish();
     }
 }

@@ -20,6 +20,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:id="@+id/options_photo"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
@@ -30,6 +31,7 @@
                 android:layout_margin="5dp"/>
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/username"
@@ -66,7 +68,7 @@
             <ImageView
                 android:src="@drawable/ic_comment"
                 android:layout_width="30dp"
-                android:id="@+id/comment"
+                android:id="@+id/commentItem"
                 android:layout_toEndOf="@+id/like"
                 android:layout_marginStart="10dp"
                 android:layout_height="30dp"/>
@@ -106,8 +108,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
+                android:editable="false"
+                android:focusable="false"
                 android:textColor="@color/color_primary_dark"
-                android:id="@+id/description"/>
+                android:id="@+id/description"
+                tools:ignore="Deprecated" />
 
         </LinearLayout>
 

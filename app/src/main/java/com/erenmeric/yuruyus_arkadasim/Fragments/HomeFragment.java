@@ -1,18 +1,27 @@
 package com.erenmeric.yuruyus_arkadasim.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
 
 import com.erenmeric.yuruyus_arkadasim.Adapter.CreateAdapter;
+import com.erenmeric.yuruyus_arkadasim.Adapter.PostAdapter;
+import com.erenmeric.yuruyus_arkadasim.DirectMessageActivity;
+import com.erenmeric.yuruyus_arkadasim.Model.Message;
 import com.erenmeric.yuruyus_arkadasim.Model.Post;
 import com.erenmeric.yuruyus_arkadasim.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -29,7 +39,10 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private CreateAdapter adapter;
+    private PostAdapter postAdapter;
     private List<Post> mPosts;
+    private ImageView inbox;
+    private View unreadMessages;
     private List<String> followingLists;
 
     @Nullable
@@ -43,6 +56,8 @@ public class HomeFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerview_posts);
         mPosts = new ArrayList<>();
         adapter = new CreateAdapter(getContext(), mPosts);
+        inbox = view.findViewById(R.id.inbox);
+        postAdapter = new PostAdapter(getContext(), mPosts);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -54,7 +69,50 @@ public class HomeFragment extends Fragment {
         followingLists = new ArrayList<>();
         checkFollowingUsers();
         //return super.onCreateView(inflater, container, savedInstanceState);
+
+
+        inbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), DirectMessageActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
+
         return view;
+
+    }
+
+    private void checkUnreadChats() {
+
+        FirebaseDatabase.getInstance().getReference().child("Messages").
+                child(FirebaseAuth.getInstance().getCurrentUser().getUid()).
+                addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull  DataSnapshot snapshot) {
+                        boolean unreadMessagesExist = false;
+                        for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                            Message message = dataSnapshot.child("lastMessage").getValue(Message.class);
+                            if(message!=null && !message.getAuthor().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()) &&
+                                    message.getSeen()==false){
+                                unreadMessagesExist =true;
+
+                            };
+                        }
+                        if(unreadMessagesExist)
+                            unreadMessages.setVisibility(View.VISIBLE);
+                        else
+                            unreadMessages.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
     }
 
     private void checkFollowingUsers() {
@@ -93,6 +151,7 @@ public class HomeFragment extends Fragment {
 
                 }
 
+                Collections.reverse(mPosts);
                 adapter.notifyDataSetChanged();
 
             }

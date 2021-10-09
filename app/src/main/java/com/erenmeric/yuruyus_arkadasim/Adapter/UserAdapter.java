@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.erenmeric.yuruyus_arkadasim.Fragments.PostDetailFragment;
+import com.erenmeric.yuruyus_arkadasim.Fragments.ProfileFragment;
 import com.erenmeric.yuruyus_arkadasim.Model.User;
 import com.erenmeric.yuruyus_arkadasim.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -73,6 +75,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
                             child(firebaseUser.getUid()).child("following").child(user.getId()).setValue(true);
                     FirebaseDatabase.getInstance().getReference().child("Follow").child(user.getId())
                             .child("followers").child(firebaseUser.getUid()).setValue(true);
+                    addNotification(user.getId());
                 } else {
                     FirebaseDatabase.getInstance().getReference().child("Follow").
                             child(firebaseUser.getUid()).child("following").child(user.getId()).removeValue();
@@ -85,12 +88,25 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
         holder.username.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mContext.getSharedPreferences("PROFILE",Context.MODE_PRIVATE).edit().putString("profileid",user.getId()).apply();
+                mContext.getSharedPreferences("PROFILE",Context.MODE_PRIVATE).edit().putString("profileId",user.getId()).apply();
 
                 ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(
-                        R.id.fragment_container, new PostDetailFragment()).commit();
+                        R.id.fragment_container, new ProfileFragment()).commit();
             }
         });
+
+
+    }
+
+    private void addNotification(String id) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("userid", firebaseUser.getUid());
+        map.put("text"," started following you");
+        map.put("postid", "");
+        map.put("isPost", false);
+
+        FirebaseDatabase.getInstance().getReference().child("Notifications").child(id).
+                push().setValue(map);
     }
 
     private void isFollow(String id, Button btnFollow) {

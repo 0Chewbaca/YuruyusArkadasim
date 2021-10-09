@@ -7,8 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.erenmeric.yuruyus_arkadasim.Fragments.ProfileFragment;
+import com.erenmeric.yuruyus_arkadasim.Fragments.TagsDetailFragment;
 import com.erenmeric.yuruyus_arkadasim.R;
 
 import java.util.List;
@@ -34,8 +37,19 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TagAdapter.ViewHolder holder, int position) {
+        String tagid = mTags.get(position);
         holder.tag.setText("#"+mTags.get(position));
         holder.noOfPosts.setText(mTagsCount.get(position)+ " posts");
+
+        holder.tag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mContext.getSharedPreferences("TAG",Context.MODE_PRIVATE).edit().putString("tagId", tagid).apply();
+
+                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(
+                        R.id.fragment_container, new TagsDetailFragment()).commit();
+            }
+        });
     }
 
     @Override
