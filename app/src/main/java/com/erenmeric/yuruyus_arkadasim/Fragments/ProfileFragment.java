@@ -80,7 +80,7 @@ public class ProfileFragment extends Fragment {
 
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         String data = getContext().getSharedPreferences("PROFILE", Context.MODE_PRIVATE).getString("profileId", "none");
-        Log.d("eren10253", data);
+
         if(data.equals("none")){
             profileId = fUser.getUid();
         } else {
@@ -224,6 +224,23 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+
+        FirebaseDatabase.getInstance().getReference().child("Users").child(profileId)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+                        if( user.getImageUrl().equals("default") ){
+                            imageProfile.setImageResource(R.mipmap.ic_launcher);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
         return view;
     }

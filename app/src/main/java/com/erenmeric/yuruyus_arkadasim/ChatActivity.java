@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.erenmeric.yuruyus_arkadasim.Adapter.ChatMessageAdapter;
+import com.erenmeric.yuruyus_arkadasim.Fragments.ProfileFragment;
 import com.erenmeric.yuruyus_arkadasim.Model.Message;
 import com.erenmeric.yuruyus_arkadasim.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -99,6 +102,7 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }
         });
+
 
         getChatInfo(otherPersonId);
         getChatHistory(otherPersonId);

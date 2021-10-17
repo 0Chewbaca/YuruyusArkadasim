@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,12 +22,16 @@ import com.erenmeric.yuruyus_arkadasim.Fragments.TagsDetailFragment;
 import com.erenmeric.yuruyus_arkadasim.Model.Post;
 import com.erenmeric.yuruyus_arkadasim.Model.User;
 import com.erenmeric.yuruyus_arkadasim.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView;
 import com.hendraanggrian.appcompat.widget.SocialView;
 import com.squareup.picasso.Picasso;
@@ -233,6 +238,54 @@ public class CreateAdapter extends RecyclerView.Adapter<CreateAdapter.ViewHolder
             }
         });
 
+        holder.more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("eee1", post.getPublisher());
+                Log.d("eee1", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                if (post.getPublisher().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                    if (holder.optionsMore.getVisibility() == View.GONE){
+                        holder.optionsMore.setVisibility(View.VISIBLE);
+                    } else if (holder.optionsMore.getVisibility() == View.VISIBLE){
+                        holder.optionsMore.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
+        /*holder.editImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });*/
+
+        holder.deleteImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StorageReference photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(post.getImageUrl());
+                photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // File deleted successfully
+                        String TAG = "eren12";
+                        Log.d(TAG, "onSuccess: deleted file");
+
+                        holder.optionsMore.setVisibility(View.GONE);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Uh-oh, an error occurred!
+                        String TAG = "eren12";
+                        Log.d(TAG, "onFailure: did not delete file");
+                    }
+                });
+
+                FirebaseDatabase.getInstance().getReference("Posts").child(post.getPostId()).removeValue();
+            }
+        });
+
 
 
     }
@@ -268,6 +321,8 @@ public class CreateAdapter extends RecyclerView.Adapter<CreateAdapter.ViewHolder
         public TextView numberOfLikes;
         public TextView author;
         public TextView numberOfComments;
+        public TextView editImage, deleteImage;
+        public LinearLayout optionsMore;
         SocialAutoCompleteTextView description;
 
         public ViewHolder(@NonNull View itemView) {
@@ -285,6 +340,8 @@ public class CreateAdapter extends RecyclerView.Adapter<CreateAdapter.ViewHolder
             author = itemView.findViewById(R.id.author);
             description = itemView.findViewById(R.id.description);
             imageProfile = itemView.findViewById(R.id.profile_image);
+            deleteImage = itemView.findViewById(R.id.deleteImage);
+            optionsMore = itemView.findViewById(R.id.optionsMore);
         }
     }
 

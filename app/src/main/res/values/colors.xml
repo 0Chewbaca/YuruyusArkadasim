@@ -18,7 +18,7 @@
     <color name="color_primary">#455cde</color>
     <color name="color_primary_dark">#000d3d</color>
     <color name="color_accent">#c2bdbf</color>
-
+    <color name="blue">#0000FF</color>
     <color name="red_primary">#FF002F</color>
     <color name="red_dark">#B10021</color>
     <color name="grey_primary">#222222</color>

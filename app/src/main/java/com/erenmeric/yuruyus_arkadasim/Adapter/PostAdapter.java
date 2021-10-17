@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,6 +43,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private List<Post> mPosts;
     private Context mContext;
     private FirebaseUser firebaseUser;
+
 
     public PostAdapter(Context mContext, List<Post> postList) {
         this.mContext = mContext;
@@ -189,10 +191,41 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             }
         });
 
-        /*holder.more.setOnClickListener(new View.OnClickListener() {
+        holder.more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //FirebaseStorage mStorage = new FirebaseStorage();
+                Log.d("eee2", post.getPublisher());
+                Log.d("eee2", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                if (post.getPublisher().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                    if (holder.optionsMore.getVisibility() == View.GONE){
+                        holder.optionsMore.setVisibility(View.VISIBLE);
+                    } else {
+                        holder.optionsMore.setVisibility(View.GONE);
+                    }
+                }
+
+
+            }
+        });
+
+        holder.editImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.optionsMore.setVisibility(View.GONE);
+            }
+        });*/
+
+        holder.deleteImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
                 StorageReference photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(post.getImageUrl());
                 photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -211,9 +244,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 });
 
                 FirebaseDatabase.getInstance().getReference("Posts").child(post.getPostId()).removeValue();
-
             }
-        });*/
+        });
 
     }
 
@@ -245,6 +277,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public TextView numberOfLikes;
         public TextView author;
         public TextView numberOfComments;
+        public TextView editImage, deleteImage;
+        public LinearLayout optionsMore;
         SocialAutoCompleteTextView description;
 
         public ViewHolder(@NonNull View itemView) {
@@ -260,7 +294,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             numberOfComments = itemView.findViewById(R.id.number_of_comments);
             author = itemView.findViewById(R.id.author);
             description = itemView.findViewById(R.id.description);
-
+            editImage = itemView.findViewById(R.id.editImage);
+            deleteImage = itemView.findViewById(R.id.deleteImage);
+            optionsMore = itemView.findViewById(R.id.optionsMore);
         }
     }
 

@@ -7,15 +7,15 @@
     tools:context=".FollowersActivity">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toolbar"
-        android:background="?android:attr/windowBackground"/>
+        android:background="?android:attr/windowBackground" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:id="@+id/recycler_view"/>
+        android:layout_below="@+id/toolbar" />
 
 </RelativeLayout>

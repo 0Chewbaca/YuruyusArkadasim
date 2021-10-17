@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 
 import com.erenmeric.yuruyus_arkadasim.Adapter.ChatUserAdapter;
@@ -29,6 +30,7 @@ public class DirectMessageActivity extends AppCompatActivity {
     private ChatUserAdapter chatUserAdapter;
     private List<User> usersForChat, userForGood;
     List<String> userKeys;
+    int a;
 
     private SocialAutoCompleteTextView searchBar;
 
@@ -105,6 +107,16 @@ public class DirectMessageActivity extends AppCompatActivity {
             for (User user: userForGood){
                 if (user.getUsername().length() >= s.length() && user.getUsername().substring(0, s.length()).equals(s)) {
                     usersForChat.add(user);
+
+                }
+            }
+
+            for(User users: usersForChat) {
+                //Log.d("eren850", users.getName());
+                //Log.d("eren850", users.getId());
+                if (users.getId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())){
+                    //Log.d("eren850", "erennnn");
+                    usersForChat.remove(users);
                 }
             }
 
@@ -150,6 +162,9 @@ public class DirectMessageActivity extends AppCompatActivity {
                         }
                     }
                 }
+
+
+
                 chatUserAdapter.notifyDataSetChanged();
             }
 
@@ -165,12 +180,13 @@ public class DirectMessageActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                userForGood.clear();
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
 
                     User user = dataSnapshot.getValue(User.class);
                     userForGood.add(user);
                 }
+
             }
 
             @Override
@@ -180,5 +196,7 @@ public class DirectMessageActivity extends AppCompatActivity {
 
 
         });
+
+
     }
 }

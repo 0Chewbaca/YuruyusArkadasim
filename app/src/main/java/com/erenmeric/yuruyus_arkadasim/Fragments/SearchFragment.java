@@ -18,6 +18,8 @@ import com.erenmeric.yuruyus_arkadasim.Adapter.TagAdapter;
 import com.erenmeric.yuruyus_arkadasim.Adapter.UserAdapter;
 import com.erenmeric.yuruyus_arkadasim.Model.User;
 import com.erenmeric.yuruyus_arkadasim.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +39,7 @@ public class SearchFragment extends Fragment {
 
     private List<User> mUsers;
     private UserAdapter userAdapter;
+    private String currentUsercity;
 
     private List<String> mHashTags;
     private List<String> mHashTagCount;
@@ -72,6 +75,8 @@ public class SearchFragment extends Fragment {
 
         readUsers();
         readTags();
+
+
 
         searchBar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -125,7 +130,30 @@ public class SearchFragment extends Fragment {
                         mUsers.clear();
                         for(DataSnapshot snapshot1: snapshot.getChildren()){
                             User user = snapshot1.getValue(User.class);
-                            mUsers.add(user);
+
+                            FirebaseDatabase.getInstance().getReference().child("Users").child(
+                                    FirebaseAuth.getInstance().getCurrentUser().getUid()
+                            ).child("city").addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    String ccity = snapshot.getValue().toString();
+                                    Log.d("ccity", ccity);
+                                    Log.d("ccity", user.getCity());
+
+                                    if (user.getCity().toString().equals(ccity)) {
+                                        mUsers.add(user);
+                                        Log.d("ccity","here");
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+
+
                         }
 
                         userAdapter.notifyDataSetChanged();

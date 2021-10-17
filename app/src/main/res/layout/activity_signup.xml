@@ -9,12 +9,10 @@
 
     <EditText
         android:id="@+id/name"
-        android:layout_width="0dp"
+        android:layout_width="240dp"
         android:layout_height="0dp"
-        android:layout_marginStart="65dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="65dp"
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="27dp"
         android:ems="10"
         android:hint="İsim"
         android:inputType="textPersonName"
@@ -25,11 +23,9 @@
 
     <EditText
         android:id="@+id/emailText"
-        android:layout_width="0dp"
+        android:layout_width="243dp"
         android:layout_height="0dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginEnd="65dp"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="30dp"
         android:ems="10"
         android:hint="Mail"
         android:inputType="textPersonName"
@@ -39,42 +35,23 @@
         app:layout_constraintTop_toBottomOf="@+id/surname" />
 
     <EditText
-        android:id="@+id/city"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginEnd="65dp"
-        android:layout_marginBottom="1dp"
-        android:ems="10"
-        android:hint="Şehir"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age" />
-
-    <EditText
         android:id="@+id/age"
-        android:layout_width="0dp"
+        android:layout_width="243dp"
         android:layout_height="0dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginEnd="65dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="47dp"
         android:ems="10"
         android:hint="Yaş"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/city"
+        app:layout_constraintBottom_toTopOf="@+id/cities"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordText" />
 
     <EditText
         android:id="@+id/passwordText"
-        android:layout_width="0dp"
+        android:layout_width="242dp"
         android:layout_height="0dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginEnd="65dp"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="28dp"
         android:ems="10"
         android:hint="Şifre"
         android:inputType="textPersonName"
@@ -85,11 +62,9 @@
 
     <EditText
         android:id="@+id/surname"
-        android:layout_width="0dp"
+        android:layout_width="241dp"
         android:layout_height="0dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginEnd="65dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="34dp"
         android:ems="10"
         android:hint="Kullanıcı Adı"
         android:inputType="textPersonName"
@@ -110,31 +85,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/cities" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/cities"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
-        android:orientation='horizontal'
+        android:layout_marginBottom="45dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@+id/button105"
-        app:layout_constraintEnd_toEndOf="@+id/city"
-        app:layout_constraintTop_toBottomOf="@+id/city">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/age"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-        <RadioButton
-            android:id="@+id/radio_one"
-            android:layout_width="185dp"
-            android:layout_height="wrap_content"
-            android:text="Erkek"
-            android:textSize="18dp" />
-
-        <RadioButton
-            android:id="@+id/radio_two"
-            android:layout_width="83dp"
-            android:layout_height="wrap_content"
-            android:text="Kadın"
-            android:textSize="18dp" />
-    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

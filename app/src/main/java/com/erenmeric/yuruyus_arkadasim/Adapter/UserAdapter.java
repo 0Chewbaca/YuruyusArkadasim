@@ -1,6 +1,7 @@
 package com.erenmeric.yuruyus_arkadasim.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.erenmeric.yuruyus_arkadasim.Fragments.PostDetailFragment;
 import com.erenmeric.yuruyus_arkadasim.Fragments.ProfileFragment;
+import com.erenmeric.yuruyus_arkadasim.MainMenu;
 import com.erenmeric.yuruyus_arkadasim.Model.User;
 import com.erenmeric.yuruyus_arkadasim.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -85,15 +87,23 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder>{
             }
         });
 
-        holder.username.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mContext.getSharedPreferences("PROFILE",Context.MODE_PRIVATE).edit().putString("profileId",user.getId()).apply();
+                if(isFragment){
+                    mContext.getSharedPreferences("PROFILE", Context.MODE_PRIVATE).edit().
+                            putString("profileId", user.getId()).apply();
 
-                ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().replace(
-                        R.id.fragment_container, new ProfileFragment()).commit();
+                    ((FragmentActivity)mContext).getSupportFragmentManager().beginTransaction().
+                            replace(R.id.fragment_container, new ProfileFragment()).commit();
+                } else {
+                    Intent intent = new Intent(mContext, MainMenu.class);
+                    intent.putExtra("publisherId", user.getId());
+                    mContext.startActivity(intent);
+                }
             }
         });
+
 
 
     }

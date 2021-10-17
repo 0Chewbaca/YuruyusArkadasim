@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_primary"
+    android:background="@color/white"
     tools:context=".ChatActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -14,7 +14,7 @@
         android:id="@+id/bar">
 
         <androidx.appcompat.widget.Toolbar
-            android:background="@color/grey_accent"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/toolbar">
@@ -30,16 +30,16 @@
                     android:id="@+id/image_profile"/>
 
                 <TextView
+                    android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
                     android:layout_toEndOf="@+id/image_profile"
                     android:text="username"
+                    android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white_primary"
-                    android:layout_marginStart="10dp"
-                    android:layout_centerVertical="true"
-                    android:id="@+id/name"/>
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -71,9 +71,9 @@
             android:layout_weight="0.8"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/message_background_red"
+            android:background="@drawable/button_background"
             android:hint="Type..."
-            android:textColorHint="@color/red_dark"
+            android:textColorHint="@color/grey_300"
             android:id="@+id/edit_text"/>
 
         <Button
@@ -82,7 +82,7 @@
             android:layout_weight="0.2"
             android:text="send"
             android:background="@android:color/transparent"
-            android:textColor="@color/red_primary"
+            android:textColor="@color/blue"
             android:id="@+id/send"/>
 
     </LinearLayout>

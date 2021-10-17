@@ -71,7 +71,7 @@ public class FollowersActivity extends AppCompatActivity {
                 getLikes();
                 break;
         }
-        recyclerView.setAdapter( userAdapter);
+        recyclerView.setAdapter(userAdapter);
 
     }
 

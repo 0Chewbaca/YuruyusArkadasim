@@ -52,6 +52,8 @@
                     android:textColor="@color/color_primary_dark"
                     android:id="@+id/save"/>
 
+
+
             </RelativeLayout>
 
         </Toolbar>
@@ -105,6 +107,19 @@
             android:layout_marginTop="20dp"
             app:met_floatingLabel="normal"/>
 
+
+        <Spinner
+            android:id="@+id/changeCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bio"
+            tools:ignore="SpeakableTextPresentCheck" />
 
 
     </LinearLayout>
