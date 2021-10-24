@@ -1,6 +1,7 @@
 package com.erenmeric.yuruyus_arkadasim.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.erenmeric.yuruyus_arkadasim.Fragments.ProfileFragment;
 import com.erenmeric.yuruyus_arkadasim.Fragments.TagsDetailFragment;
 import com.erenmeric.yuruyus_arkadasim.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -50,6 +55,8 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
                         R.id.fragment_container, new TagsDetailFragment()).commit();
             }
         });
+
+
     }
 
     @Override

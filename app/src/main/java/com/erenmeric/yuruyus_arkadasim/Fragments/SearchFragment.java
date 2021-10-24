@@ -40,7 +40,7 @@ public class SearchFragment extends Fragment {
     private List<User> mUsers;
     private UserAdapter userAdapter;
     private String currentUsercity;
-
+    String ccity;
     private List<String> mHashTags;
     private List<String> mHashTagCount;
     private SocialAutoCompleteTextView searchBar;
@@ -136,7 +136,7 @@ public class SearchFragment extends Fragment {
                             ).child("city").addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    String ccity = snapshot.getValue().toString();
+                                    ccity = snapshot.getValue().toString();
                                     Log.d("ccity", ccity);
                                     Log.d("ccity", user.getCity());
 
@@ -173,15 +173,40 @@ public class SearchFragment extends Fragment {
             Query query = FirebaseDatabase.getInstance().getReference().child("Users")
                     .orderByChild("username").startAt(s).endAt( s+ "\uf8ff");
 
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot s: snapshot.getChildren()){
+                        Log.d("allahhh", s.toString());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     mUsers.clear();
                     for(DataSnapshot snapshot1: snapshot.getChildren()){
                         User user = snapshot1.getValue(User.class);
-                        Log.d("Users","now"+ user.getName());
 
-                        mUsers.add(user);
+                        //Log.d("Users","now"+ user.getName());
+                        //String ccity = snapshot.getValue().
+                        Log.d("cccity", ccity);
+                        //Log.d("cccity","here");
+
+                        if (user.getCity().toString().equals(ccity)) {
+                            mUsers.add(user);
+                            Log.d("cccity","here");
+                        }
+
                     }
                     for(User user: mUsers){
                         Log.d("Users","end" + user.getName());

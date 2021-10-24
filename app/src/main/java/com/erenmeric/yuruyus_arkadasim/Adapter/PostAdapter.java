@@ -27,7 +27,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -226,6 +228,30 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
 
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                //Log.d("merhaba", "tamam");
+
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        //Log.d("merhaba", "içerdeyiz");
+                        for (DataSnapshot s: snapshot.getChildren()){
+                            if (s.getValue().toString().contains(post.getPostId())){
+                                //Log.d("merhaba", "haydaa");
+                                FirebaseDatabase.getInstance().getReference().child("Hashtags").child(s.toString())
+                                        .child(post.getPostId()).removeValue();
+                                //Log.d("merhaba", "hayddaaaaa!!");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
                 StorageReference photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(post.getImageUrl());
                 photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -233,6 +259,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         // File deleted successfully
                         String TAG = "eren12";
                         Log.d(TAG, "onSuccess: deleted file");
+
+
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

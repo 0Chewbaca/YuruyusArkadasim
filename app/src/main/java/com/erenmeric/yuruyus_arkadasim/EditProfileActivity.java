@@ -131,14 +131,30 @@ public class EditProfileActivity extends AppCompatActivity {
 
         cityAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item
                 , cityList);
-
         changeCity.setAdapter(cityAdapter);
 
+
+        FirebaseDatabase.getInstance().getReference().child("Users").child(
+                FirebaseAuth.getInstance().getCurrentUser().getUid()
+        ).child("city").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                city = snapshot.getValue().toString();
+                cityList.add(0,city);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
-    private void addTheCurrentCity() {
+    /*private void addTheCurrentCity() {
 
-    }
+    }*/
 
     private void addCities(){
         cityList.add("Adana");
