@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainMenu">
+    tools:context="com.erenmeric1.yuruyus_arkadasim.MainMenu">
 
     <FrameLayout
         android:id="@+id/fragment_container"
@@ -27,7 +27,7 @@
             android:id="@+id/bottom_navigation"
             app:labelVisibilityMode="unlabeled"
             android:background="?android:attr/windowBackground"
-            app:menu="@menu/bottom_menu"
+            app:menu="@drawable/bottom_menu"
             app:itemIconTint="#aaaaaa">
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>

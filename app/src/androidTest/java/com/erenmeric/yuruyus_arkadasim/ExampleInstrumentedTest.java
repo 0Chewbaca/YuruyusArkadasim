@@ -1,4 +1,4 @@
-package com.erenmeric.yuruyus_arkadasim;
+package com.erenmeric1.yuruyus_arkadasim;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.erenmeric.yuruyus_arkadasim", appContext.getPackageName());
+        assertEquals("com.erenmeric1.yuruyus_arkadasim", appContext.getPackageName());
     }
 }

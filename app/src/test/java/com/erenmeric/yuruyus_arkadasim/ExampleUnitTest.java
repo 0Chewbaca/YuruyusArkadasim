@@ -1,4 +1,4 @@
-package com.erenmeric.yuruyus_arkadasim;
+package com.erenmeric1.yuruyus_arkadasim;
 
 import org.junit.Test;
 

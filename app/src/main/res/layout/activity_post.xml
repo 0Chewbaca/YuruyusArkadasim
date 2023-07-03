@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PostActivity">
+    tools:context="com.erenmeric1.yuruyus_arkadasim.PostActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -60,16 +60,17 @@
             android:id="@+id/image_added"/>
 
         <com.hendraanggrian.appcompat.widget.SocialAutoCompleteTextView
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:hint="Description"
             android:maxLines="5"
-            android:id="@+id/description"
-            app:socialFlags="hashtag|mention"
+            android:minHeight="48dp"
             app:hashtagColor="#000099"
+            app:hyperlinkColor="#000099"
             app:mentionColor="#000099"
-            app:hyperlinkColor="#000099"/>
+            app:socialFlags="hashtag|mention" />
 
     </LinearLayout>
 </LinearLayout>

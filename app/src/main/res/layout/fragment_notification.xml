@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".Fragments.NotificationFragment">
+    tools:context="com.erenmeric1.yuruyus_arkadasim.Fragments.NotificationFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

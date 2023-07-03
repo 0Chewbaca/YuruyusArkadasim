@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.erenmeric.yuruyus_arkadasim">
+    package="com.erenmeric1.yuruyus_arkadasim" android:versionCode="2" android:versionName="1.2">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:allowBackup="true"
@@ -14,24 +15,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Yuruyus_Arkadasim">
         <activity
-            android:name=".DirectMessageActivity"
+            android:name="com.erenmeric1.yuruyus_arkadasim.DirectMessageActivity"
             android:exported="true" />
         <activity
-            android:name=".ChatActivity"
+            android:name="com.erenmeric1.yuruyus_arkadasim.ChatActivity"
             android:exported="true" />
         <activity
-            android:name=".FollowersActivity"
+            android:name="com.erenmeric1.yuruyus_arkadasim.FollowersActivity"
             android:exported="true" />
         <activity
-            android:name=".OptionsActivity"
+            android:name="com.erenmeric1.yuruyus_arkadasim.OptionsActivity"
             android:exported="true" />
-        <activity android:name=".EditProfileActivity" />
-        <activity android:name=".CommentActivity" />
-        <activity android:name=".PostActivity" />
-        <activity android:name=".MainMenu" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".LoginScreen" />
-        <activity android:name=".EnterScreen">
+        <activity android:exported="true" android:name="com.erenmeric1.yuruyus_arkadasim.EditProfileActivity" />
+        <activity android:exported="true" android:name="com.erenmeric1.yuruyus_arkadasim.CommentActivity" />
+        <activity android:exported="true" android:name="com.erenmeric1.yuruyus_arkadasim.PostActivity" />
+        <activity android:exported="true" android:name="com.erenmeric1.yuruyus_arkadasim.MainMenu" />
+        <activity android:exported="true" android:name="com.erenmeric1.yuruyus_arkadasim.SignupActivity" />
+        <activity android:exported="true" android:name="com.erenmeric1.yuruyus_arkadasim.LoginScreen" />
+        <activity android:exported="true" android:name="com.erenmeric1.yuruyus_arkadasim.EnterScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,6 +40,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:exported="true"
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
     </application>

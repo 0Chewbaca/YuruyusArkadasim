@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".OptionsActivity">
+    tools:context="com.erenmeric1.yuruyus_arkadasim.OptionsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
